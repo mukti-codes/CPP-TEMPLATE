@@ -1,2 +1,2 @@
 # CPP-TEMPLATE
-Berisi syntax C++
+contains C++ syntax
