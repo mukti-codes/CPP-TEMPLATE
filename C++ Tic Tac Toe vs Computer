@@ -1,0 +1,178 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+char papan[3][3] = {
+    {'1', '2', '3'},
+    {'4', '5', '6'},
+    {'7', '8', '9'}
+};
+
+// Menampilkan papan
+void tampilkanPapan() {
+    cout << "\n";
+    cout << "     |     |     \n";
+    cout << "  " << papan[0][0] << "  |  " << papan[0][1] << "  |  " << papan[0][2] << "\n";
+    cout << "_____|_____|_____\n";
+    cout << "     |     |     \n";
+    cout << "  " << papan[1][0] << "  |  " << papan[1][1] << "  |  " << papan[1][2] << "\n";
+    cout << "_____|_____|_____\n";
+    cout << "     |     |     \n";
+    cout << "  " << papan[2][0] << "  |  " << papan[2][1] << "  |  " << papan[2][2] << "\n";
+    cout << "     |     |     \n";
+}
+
+// Mengecek pemenang
+char cekPemenang() {
+
+    // Baris
+    for (int i = 0; i < 3; i++) {
+        if (papan[i][0] == papan[i][1] &&
+            papan[i][1] == papan[i][2]) {
+            return papan[i][0];
+        }
+    }
+
+    // Kolom
+    for (int i = 0; i < 3; i++) {
+        if (papan[0][i] == papan[1][i] &&
+            papan[1][i] == papan[2][i]) {
+            return papan[0][i];
+        }
+    }
+
+    // Diagonal
+    if (papan[0][0] == papan[1][1] &&
+        papan[1][1] == papan[2][2]) {
+        return papan[0][0];
+    }
+
+    if (papan[0][2] == papan[1][1] &&
+        papan[1][1] == papan[2][0]) {
+        return papan[0][2];
+    }
+
+    return ' ';
+}
+
+// Mengecek apakah papan penuh
+bool papanPenuh() {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (papan[i][j] != 'X' && papan[i][j] != 'O') {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+// Giliran pemain
+void giliranPemain() {
+    int pilihan;
+
+    while (true) {
+        cout << "\nPilih posisi (1-9): ";
+        cin >> pilihan;
+
+        if (pilihan < 1 || pilihan > 9) {
+            cout << "Pilihan tidak valid!\n";
+            continue;
+        }
+
+        int baris = (pilihan - 1) / 3;
+        int kolom = (pilihan - 1) % 3;
+
+        if (papan[baris][kolom] == 'X' ||
+            papan[baris][kolom] == 'O') {
+            cout << "Posisi sudah digunakan!\n";
+        } else {
+            papan[baris][kolom] = 'X';
+            break;
+        }
+    }
+}
+
+// Giliran komputer
+void giliranComputer() {
+    int pilihan;
+
+    do {
+        pilihan = rand() % 9 + 1;
+
+        int baris = (pilihan - 1) / 3;
+        int kolom = (pilihan - 1) % 3;
+
+        if (papan[baris][kolom] != 'X' &&
+            papan[baris][kolom] != 'O') {
+
+            papan[baris][kolom] = 'O';
+
+            cout << "\nComputer memilih posisi: "
+                 << pilihan << endl;
+
+            break;
+        }
+
+    } while (true);
+}
+
+int main() {
+
+    srand(time(0));
+
+    char pemenang = ' ';
+
+    cout << "================================\n";
+    cout << "       TIC TAC TOE GAME\n";
+    cout << "       PLAYER VS COMPUTER\n";
+    cout << "================================\n";
+
+    cout << "\nKamu = X";
+    cout << "\nComputer = O\n";
+
+    tampilkanPapan();
+
+    while (true) {
+
+        // Giliran pemain
+        giliranPemain();
+
+        tampilkanPapan();
+
+        pemenang = cekPemenang();
+
+        if (pemenang == 'X') {
+            cout << "\n*** KAMU MENANG! ***\n";
+            break;
+        }
+
+        if (papanPenuh()) {
+            cout << "\n*** PERMAINAN SERI! ***\n";
+            break;
+        }
+
+        // Giliran komputer
+        giliranComputer();
+
+        tampilkanPapan();
+
+        pemenang = cekPemenang();
+
+        if (pemenang == 'O') {
+            cout << "\n*** COMPUTER MENANG! ***\n";
+            break;
+        }
+
+        if (papanPenuh()) {
+            cout << "\n*** PERMAINAN SERI! ***\n";
+            break;
+        }
+    }
+
+    cout << "\nTerima kasih sudah bermain!\n";
+
+    return 0;
+}
