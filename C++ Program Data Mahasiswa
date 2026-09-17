@@ -1,0 +1,89 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    string nama, nim, jurusan;
+    float tugas, uts, uas, nilaiAkhir;
+    char grade;
+    int pilihan;
+
+    do {
+        cout << "\n===== PROGRAM DATA MAHASISWA =====\n";
+        cout << "1. Input Data Mahasiswa\n";
+        cout << "2. Tampilkan Data Mahasiswa\n";
+        cout << "3. Keluar\n";
+        cout << "Pilih menu: ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+
+            case 1:
+                cout << "\n--- Input Data Mahasiswa ---\n";
+
+                cin.ignore();
+
+                cout << "Nama    : ";
+                getline(cin, nama);
+
+                cout << "NIM     : ";
+                getline(cin, nim);
+
+                cout << "Jurusan : ";
+                getline(cin, jurusan);
+
+                cout << "Nilai Tugas : ";
+                cin >> tugas;
+
+                cout << "Nilai UTS   : ";
+                cin >> uts;
+
+                cout << "Nilai UAS   : ";
+                cin >> uas;
+
+                nilaiAkhir = (tugas * 0.30) + 
+                             (uts * 0.30) + 
+                             (uas * 0.40);
+
+                if (nilaiAkhir >= 85)
+                    grade = 'A';
+                else if (nilaiAkhir >= 75)
+                    grade = 'B';
+                else if (nilaiAkhir >= 65)
+                    grade = 'C';
+                else if (nilaiAkhir >= 50)
+                    grade = 'D';
+                else
+                    grade = 'E';
+
+                cout << "\nData berhasil disimpan!\n";
+                break;
+
+            case 2:
+                cout << "\n--- Data Mahasiswa ---\n";
+
+                if (nama == "") {
+                    cout << "Belum ada data mahasiswa.\n";
+                } else {
+                    cout << "Nama        : " << nama << endl;
+                    cout << "NIM         : " << nim << endl;
+                    cout << "Jurusan     : " << jurusan << endl;
+                    cout << "Nilai Tugas : " << tugas << endl;
+                    cout << "Nilai UTS   : " << uts << endl;
+                    cout << "Nilai UAS   : " << uas << endl;
+                    cout << "Nilai Akhir : " << nilaiAkhir << endl;
+                    cout << "Grade       : " << grade << endl;
+                }
+                break;
+
+            case 3:
+                cout << "\nProgram selesai.\n";
+                break;
+
+            default:
+                cout << "\nPilihan tidak tersedia!\n";
+        }
+
+    } while (pilihan != 3);
+
+    return 0;
+}
