@@ -1,0 +1,88 @@
+#include <iostream>
+using namespace std;
+
+// Fungsi menghitung volume limas
+double hitungVolume(double luasAlas, double tinggi) {
+    return (1.0 / 3.0) * luasAlas * tinggi;
+}
+
+// Fungsi menghitung luas permukaan limas
+double hitungLuasPermukaan(double luasAlas, double luasSisiTegak) {
+    return luasAlas + luasSisiTegak;
+}
+
+int main() {
+    double luasAlas, tinggi, luasSisiTegak;
+    int pilihan;
+
+    do {
+        cout << "\n========================================\n";
+        cout << "       PROGRAM PERHITUNGAN LIMAS\n";
+        cout << "========================================\n";
+        cout << "1. Hitung Volume\n";
+        cout << "2. Hitung Luas Permukaan\n";
+        cout << "3. Hitung Volume dan Luas Permukaan\n";
+        cout << "4. Keluar\n";
+        cout << "----------------------------------------\n";
+        cout << "Pilih menu : ";
+        cin >> pilihan;
+
+        if (pilihan == 4) {
+            cout << "\nProgram selesai. Terima kasih!\n";
+            break;
+        }
+
+        if (pilihan < 1 || pilihan > 4) {
+            cout << "\nPilihan tidak tersedia!\n";
+            continue;
+        }
+
+        cout << "\nMasukkan luas alas limas          : ";
+        cin >> luasAlas;
+
+        cout << "Masukkan tinggi limas              : ";
+        cin >> tinggi;
+
+        if (luasAlas <= 0 || tinggi <= 0) {
+            cout << "\nError: nilai harus lebih besar dari 0!\n";
+            continue;
+        }
+
+        if (pilihan == 2 || pilihan == 3) {
+            cout << "Masukkan luas seluruh sisi tegak : ";
+            cin >> luasSisiTegak;
+
+            if (luasSisiTegak <= 0) {
+                cout << "\nError: nilai harus lebih besar dari 0!\n";
+                continue;
+            }
+        }
+
+        cout << "\n========================================\n";
+        cout << "          HASIL PERHITUNGAN\n";
+        cout << "========================================\n";
+
+        if (pilihan == 1) {
+            cout << "Volume limas       : "
+                 << hitungVolume(luasAlas, tinggi) << endl;
+        }
+
+        else if (pilihan == 2) {
+            cout << "Luas permukaan     : "
+                 << hitungLuasPermukaan(luasAlas, luasSisiTegak) << endl;
+        }
+
+        else if (pilihan == 3) {
+            cout << "Volume limas       : "
+                 << hitungVolume(luasAlas, tinggi) << endl;
+
+            cout << "Luas permukaan     : "
+                 << hitungLuasPermukaan(luasAlas, luasSisiTegak) << endl;
+        }
+
+        cout << "========================================\n";
+
+    } while (true);
+
+    return 0;
+}
